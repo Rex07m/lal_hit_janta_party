@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lal Hit Janta Party</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f4f4;
+      color:#111;
+      overflow-x:hidden;
+    }
+
+    header{
+      background:linear-gradient(135deg,#d10000,#ff1e1e);
+      color:white;
+      padding:40px 20px;
+      text-align:center;
+    }
+
+    header img{
+      width:220px;
+      border-radius:50%;
+      background:white;
+      padding:10px;
+      box-shadow:0 0 20px rgba(0,0,0,0.3);
+    }
+
+    header h1{
+      font-size:3rem;
+      margin-top:20px;
+      font-weight:900;
+    }
+
+    header p{
+      margin-top:10px;
+      font-size:1.2rem;
+    }
+
+    nav{
+      background:black;
+      padding:15px;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin:0 15px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:red;
+    }
+
+    section{
+      padding:70px 10%;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:2.5rem;
+      margin-bottom:40px;
+      color:#c40000;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .about img{
+      width:100%;
+      border-radius:20px;
+      box-shadow:0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .about-text{
+      font-size:1.1rem;
+      line-height:1.8;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:white;
+      padding:30px;
+      border-radius:15px;
+      box-shadow:0 0 15px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+    }
+
+    .card h3{
+      color:#d10000;
+      margin-bottom:15px;
+    }
+
+    .join-form{
+      background:white;
+      padding:40px;
+      border-radius:20px;
+      max-width:700px;
+      margin:auto;
+      box-shadow:0 0 20px rgba(0,0,0,0.15);
+    }
+
+    .join-form input,
+    .join-form textarea,
+    .join-form select{
+      width:100%;
+      padding:14px;
+      margin:12px 0;
+      border:1px solid #ccc;
+      border-radius:10px;
+      font-size:1rem;
+    }
+
+    .join-form button{
+      width:100%;
+      padding:15px;
+      background:#d10000;
+      color:white;
+      border:none;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .join-form button:hover{
+      background:black;
+    }
+
+    .member-count{
+      text-align:center;
+      margin-top:20px;
+      font-size:1.5rem;
+      font-weight:bold;
+      color:#d10000;
+    }
+
+    #cardPreview{
+      margin-top:40px;
+      display:none;
+      background:white;
+      border-radius:20px;
+      padding:30px;
+      max-width:500px;
+      margin-inline:auto;
+      text-align:center;
+      box-shadow:0 0 20px rgba(0,0,0,0.2);
+    }
+
+    #cardPreview img{
+      width:120px;
+      border-radius:50%;
+      margin-bottom:15px;
+    }
+
+    .download-btn{
+      margin-top:20px;
+      background:black;
+    }
+
+    footer{
+      background:black;
+      color:white;
+      text-align:center;
+      padding:30px;
+      margin-top:40px;
+    }
+
+    @media(max-width:768px){
+      .about{
+        grid-template-columns:1fr;
+      }
+
+      header h1{
+        font-size:2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+    <img src="logo.png" alt="Lal Hit Logo">
+
+    <h1>LAL HIT JANTA PARTY</h1>
+
+    <p>Clean Society. Strong Nation.</p>
+
+    <br>
+
+    <h3>Founder: Pritam Kumar Das</h3>
+  </header>
+
+  <!-- NAVBAR -->
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#vision">Vision</a>
+    <a href="#rules">Rules</a>
+    <a href="#join">Join Us</a>
+  </nav>
+
+  <!-- ABOUT -->
+
+  <section id="about">
+
+    <h2 class="section-title">About The Party</h2>
+
+    <div class="about">
+
+      <img src="logo.png" alt="Party Logo">
+
+      <div class="about-text">
+
+        <p>
+          Lal Hit Janta Party is a youth-focused movement against corruption,
+          fake propaganda, political manipulation, and anti-development politics.
+        </p>
+
+        <br>
+
+        <p>
+          Our goal is to build a modern India based on discipline,
+          transparency, technology, development, and public accountability.
+        </p>
+
+        <br>
+
+        <p>
+          We believe politics should serve people — not dynasties,
+          influencers, or corruption networks.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- VISION -->
+
+  <section id="vision">
+
+    <h2 class="section-title">Our Vision</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>Clean Politics</h3>
+        <p>
+          Remove corruption, fake promises, and criminal influence from politics.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Digital India</h3>
+        <p>
+          Transparent governance through technology and public accountability.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Youth Power</h3>
+        <p>
+          Give opportunities to educated and skilled youth leaders.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Development First</h3>
+        <p>
+          Infrastructure, jobs, education, safety, and national growth above all.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- RULES -->
+
+  <section id="rules">
+
+    <h2 class="section-title">Party Rules & Regulations</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>No Corruption</h3>
+        <p>Any proven corruption leads to immediate removal.</p>
+      </div>
+
+      <div class="card">
+        <h3>No Hate Politics</h3>
+        <p>Religion and caste politics are strictly prohibited.</p>
+      </div>
+
+      <div class="card">
+        <h3>Public Accountability</h3>
+        <p>Leaders must publish yearly work reports.</p>
+      </div>
+
+      <div class="card">
+        <h3>Nation First</h3>
+        <p>Development and public welfare above personal power.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- JOIN -->
+
+  <section id="join">
+
+    <h2 class="section-title">Join The Movement</h2>
+
+    <div class="join-form">
+
+      <input type="text" id="name" placeholder="Full Name" required>
+
+      <input type="number" id="age" placeholder="Age" required>
+
+      <input type="email" id="email" placeholder="Email Address" required>
+
+      <input type="text" id="phone" placeholder="Phone Number" required>
+
+      <input type="text" id="state" placeholder="State" required>
+
+      <select id="profession">
+        <option>Select Profession</option>
+        <option>Student</option>
+        <option>Engineer</option>
+        <option>Business</option>
+        <option>Farmer</option>
+        <option>Other</option>
+      </select>
+
+      <textarea id="message" rows="4" placeholder="Why do you want to join?"></textarea>
+
+      <button onclick="joinParty()">Join Party</button>
+
+      <div class="member-count">
+        Total Members: <span id="memberCount">0</span>
+      </div>
+
+    </div>
+
+    <!-- CARD -->
+
+    <div id="cardPreview">
+
+      <img src="logo.png" alt="logo">
+
+      <h2>LAL HIT JANTA PARTY</h2>
+
+      <p id="cardName"></p>
+      <p id="cardState"></p>
+      <p id="cardProfession"></p>
+
+      <br>
+
+      <strong>Official Member Card</strong>
+
+      <br><br>
+
+      <button class="join-form button download-btn" onclick="downloadCard()">
+        Download Card
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <h2>LAL HIT JANTA PARTY</h2>
+
+    <br>
+
+    <p>Spray Out Corruption. Build A Better Nation.</p>
+
+    <br>
+
+    <p>Founder: Pritam Kumar Das</p>
+
+    <br>
+
+    <p>© 2026 All Rights Reserved</p>
+
+  </footer>
+
+  <!-- SCRIPT -->
+
+  <script>
+
+    let members = localStorage.getItem("members")
+      ? JSON.parse(localStorage.getItem("members"))
+      : [];
+
+    document.getElementById("memberCount").innerText = members.length;
+
+    function joinParty(){
+
+      let name = document.getElementById("name").value;
+      let state = document.getElementById("state").value;
+      let profession = document.getElementById("profession").value;
+
+      if(name === "" || state === ""){
+        alert("Please fill all required details");
+        return;
+      }
+
+      const userData = {
+        name:name,
+        state:state,
+        profession:profession
+      };
+
+      members.push(userData);
+
+      localStorage.setItem("members", JSON.stringify(members));
+
+      document.getElementById("memberCount").innerText = members.length;
+
+      document.getElementById("cardPreview").style.display = "block";
+
+      document.getElementById("cardName").innerText = "Member: " + name;
+      document.getElementById("cardState").innerText = "State: " + state;
+      document.getElementById("cardProfession").innerText = "Profession: " + profession;
+
+      alert("Welcome to Lal Hit Janta Party!");
+
+    }
+
+    function downloadCard(){
+
+      window.print();
+
+    }
+
+  </script>
+
+</body>
+</html>
