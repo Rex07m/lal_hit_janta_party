@@ -336,6 +336,131 @@
       margin-left: 5px;
     }
 
+    /* OTP MODAL CONTAINER */
+    .otp-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 6, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .otp-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .otp-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      transform: scale(0.9);
+      transition: var(--transition);
+    }
+
+    .otp-modal.active .otp-box {
+      transform: scale(1);
+    }
+
+    .otp-box h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .otp-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+
+    /* Highlight box simulating notification capture */
+    .otp-alert-sim {
+      background: rgba(230, 0, 0, 0.1);
+      border: 1px dashed var(--primary);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      color: #ff6b6b;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .otp-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .otp-inputs input {
+      width: 50px;
+      height: 55px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .otp-inputs input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .otp-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .otp-btn-verify {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .otp-btn-verify:hover {
+      background: var(--primary-dark);
+    }
+
+    .otp-btn-cancel {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .otp-btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: white;
+    }
+
     /* MEMBERSHIP CARD INTERFACE */
     .card-preview-pane {
       position: sticky;
@@ -575,7 +700,6 @@
 
   <!-- HEADER / HERO SECTION -->
   <header>
-    <!-- Kept your standard logo reference -->
     <img src="logo.png" alt="Lal Hit Logo" onerror="this.style.display='none'">
     <h1>LAL HIT JANTA PARTY</h1>
     <p>Clean Society. Strong Nation.</p>
@@ -690,7 +814,7 @@
           </div>
         </div>
         
-        <button type="button" onclick="joinParty()">Register Membership</button>
+        <button type="button" onclick="initiateRegistrationWorkflow()">Register Membership</button>
         
         <div class="member-count">
           Total Registered Patriots: <span id="memberCount">0</span>
@@ -752,6 +876,31 @@
     </div>
   </section>
 
+  <!-- INTERACTIVE OTP MODAL SYSTEM -->
+  <div class="otp-modal" id="otpModal">
+    <div class="otp-box">
+      <h3>Security Verification</h3>
+      <p>Enter the 4-digit verification token sent to your device credentials.</p>
+      
+      <!-- Simulated live network alerts -->
+      <div class="otp-alert-sim" id="otpAlertBox">
+        Simulated Gateway Transmission Success! Code: <span id="simulatedCodeDisplay" style="font-weight:800; text-decoration: underline;">0000</span>
+      </div>
+
+      <div class="otp-inputs">
+        <input type="text" maxlength="1" id="otp1" oninput="shiftOtpFocus(this, 'otp2')" onkeydown="handleOtpBackspace(event, null, 'otp1')">
+        <input type="text" maxlength="1" id="otp2" oninput="shiftOtpFocus(this, 'otp3')" onkeydown="handleOtpBackspace(event, 'otp1', 'otp2')">
+        <input type="text" maxlength="1" id="otp3" oninput="shiftOtpFocus(this, 'otp4')" onkeydown="onkeydown=handleOtpBackspace(event, 'otp2', 'otp3')">
+        <input type="text" maxlength="1" id="otp4" oninput="shiftOtpFocus(this, null)" onkeydown="handleOtpBackspace(event, 'otp3', 'otp4')">
+      </div>
+
+      <div class="otp-actions">
+        <button class="otp-btn-verify" onclick="verifyOtpAndCommitRegistration()">Verify & Authorize Identity</button>
+        <button class="otp-btn-cancel" onclick="closeOtpVerificationModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <h2>LAL HIT JANTA PARTY</h2>
@@ -765,15 +914,19 @@
 
   <!-- ACTION LOGIC -->
   <script>
-    // Initialize or load existing local roster state
+    // Global variable tracking current runtime context data state variables
     let members = localStorage.getItem("lhjp_members")
       ? JSON.parse(localStorage.getItem("lhjp_members"))
       : [];
+    
+    let currentGeneratedOTP = "";
+    let temporaryRegistrationPayload = null;
 
     // Sync UI counter state
     document.getElementById("memberCount").innerText = members.length;
 
-    function joinParty(){
+    // INTERCEPT STEP: Checks fields and initiates verification window
+    function initiateRegistrationWorkflow() {
       const name = document.getElementById("name").value.trim();
       const age = document.getElementById("age").value.trim();
       const email = document.getElementById("email").value.trim().toLowerCase();
@@ -781,9 +934,9 @@
       const state = document.getElementById("state").value.trim();
       const profession = document.getElementById("profession").value;
 
-      // Base Validation Check
+      // Base Structural Validation
       if(!name || !age || !email || !phone || !state || !profession){
-        alert("Action Required: Please complete all operational fields before hitting registration.");
+        alert("Action Required: Please complete all operational fields before requesting authentication.");
         return;
       }
 
@@ -792,41 +945,87 @@
         return;
       }
 
-      // DUPLICATE RECORD PROTECTION ALGORITHM
+      // DUPLICATE RECORD PROTECTION CHECK
       const absoluteDuplicate = members.find(m => m.email === email || m.phone === phone);
       if(absoluteDuplicate){
-        alert("Security Lockout: A registration record already exists in our system with this specific Email or Phone Number.");
-        
-        // Immediately load their existing card values instead of locking them out completely
+        alert("Security Lockout: A registration record already exists with this specific Email or Phone Number.");
         populateIdentityCard(absoluteDuplicate.name, absoluteDuplicate.state, absoluteDuplicate.profession, absoluteDuplicate.uid);
         return;
       }
 
-      // Generate verifiable Unique ID hash index
+      // Generate Random 4 Digit Verification Code
+      currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+      
+      // Store inputs into a temporary sandbox state until valid code verification
+      temporaryRegistrationPayload = { name, age, email, phone, state, profession };
+
+      // Clear old input strings out of text boxes
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById(`otp${i}`).value = "";
+      }
+
+      // Show Gateway Modal Panel on screen interface
+      document.getElementById("simulatedCodeDisplay").innerText = currentGeneratedOTP;
+      document.getElementById("otpModal").classList.add("active");
+      document.getElementById("otp1").focus();
+    }
+
+    // OTP NAVIGATION CONTROLLERS
+    function shiftOtpFocus(currentElement, nextInputId) {
+      if (currentElement.value.length >= 1 && nextInputId) {
+        document.getElementById(nextInputId).focus();
+      }
+    }
+
+    function handleOtpBackspace(event, previousInputId, currentInputId) {
+      if (event.key === "Backspace" && !document.getElementById(currentInputId).value && previousInputId) {
+        document.getElementById(previousInputId).focus();
+      }
+    }
+
+    function closeOtpVerificationModal() {
+      document.getElementById("otpModal").classList.remove("active");
+      temporaryRegistrationPayload = null;
+      currentGeneratedOTP = "";
+    }
+
+    // VALIDATE CODE STEP: Verifies input code match string criteria
+    function verifyOtpAndCommitRegistration() {
+      let enteredCode = "";
+      for (let i = 1; i <= 4; i++) {
+        enteredCode += document.getElementById(`otp${i}`).value.trim();
+      }
+
+      if (enteredCode.length < 4) {
+        alert("Security Alert: Enter the complete 4-digit authentication code.");
+        return;
+      }
+
+      if (enteredCode !== currentGeneratedOTP) {
+        alert("Authentication Failed: The verification token entered is invalid. Try again.");
+        return;
+      }
+
+      // Process and commit to database storage after passing security check
       const uniqueSuffix = Math.floor(100000 + Math.random() * 900000);
       const assignedUID = `LHJP-${uniqueSuffix}`;
 
-      const newMemberData = {
-        name: name,
-        age: age,
-        email: email,
-        phone: phone,
-        state: state,
-        profession: profession,
+      const finalMemberProfile = {
+        ...temporaryRegistrationPayload,
         uid: assignedUID
       };
 
-      // Push and commit state to Storage Array
-      members.push(newMemberData);
+      // Push and commit state down to disk registry arrays
+      members.push(finalMemberProfile);
       localStorage.setItem("lhjp_members", JSON.stringify(members));
 
-      // Refresh Counters across Layout
+      // Update screen visual components
       document.getElementById("memberCount").innerText = members.length;
-
-      // Populate Graphic Card Layout
-      populateIdentityCard(name, state, profession, assignedUID);
+      populateIdentityCard(finalMemberProfile.name, finalMemberProfile.state, finalMemberProfile.profession, assignedUID);
       
-      alert(`Welcome Comrade! Your membership is confirmed. Your unique tracking number is ${assignedUID}`);
+      // Close active modal frame overlays
+      closeOtpVerificationModal();
+      alert(`Identity Confirmed! Welcome to the movement. Custom Digital ID generated.`);
     }
 
     function populateIdentityCard(name, state, profession, uid) {
@@ -838,27 +1037,23 @@
       document.getElementById("cardProfession").innerText = profession;
       document.getElementById("cardUID").innerText = uid;
 
-      // Extract first letter for visual identity block avatar
       if(name.length > 0) {
         document.getElementById("cardInitial").innerText = name.charAt(0);
       }
     }
 
-    // MODERN RENDER PROTOCOL VIA HTML2CANVAS
+    // HIGH DEF IMAGE MINT PROTOCOL VIA CANVAS API Engine
     function downloadCardImage() {
       const cardTarget = document.getElementById("idCard");
       const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
 
-      // Use a configuration object for html2canvas to guarantee deep color retention
       html2canvas(cardTarget, {
-        scale: 2, // Doubles rendering resolution for clean visibility on displays
-        backgroundColor: null, // Keeps background transparent outside the card edges
-        useCORS: true, // Prevents clean image block corruption
+        scale: 2, 
+        backgroundColor: null, 
+        useCORS: true, 
         logging: false
       }).then(canvas => {
         const generatedImageURL = canvas.toDataURL("image/png");
-        
-        // Simulating programmatic click step to drop the asset file instantly
         const downloadHook = document.createElement('a');
         downloadHook.href = generatedImageURL;
         downloadHook.download = `LHJP_Member_${memberName}.png`;
@@ -867,7 +1062,6 @@
         document.body.removeChild(downloadHook);
       }).catch(err => {
         console.error("Render Engine Fault:", err);
-        alert("Rendering error encountered. Defaulting back to local system printing window context.");
         window.print();
       });
     }
