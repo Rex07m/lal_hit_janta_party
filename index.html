@@ -889,7 +889,7 @@
   </footer>
 
   <script>
-    // Production API Configuration parameters mapping directly to your live console variables
+    // Live Firebase API Credentials extracted from your project configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAU0qbJg9s8yanJ_DKd_gD7pE1W3V4A5B6",
       authDomain: "lal-hi-janta-party.firebaseapp.com",
@@ -1031,18 +1031,4 @@
         })
         .catch((error) => {
           console.error("Database Save Fault Context:", error);
-          alert("Network Timeout: Unable to write data stream down to centralized architecture hubs.");
-        });
-    }
-
-    function populateIdentityCard(name, state, profession, uid) {
-      document.getElementById("cardPlaceholder").style.display = "none";
-      document.getElementById("cardUIWrapper").style.display = "flex";
-
-      document.getElementById("cardName").innerText = name;
-      document.getElementById("cardState").innerText = state;
-      document.getElementById("cardProfession").innerText = profession;
-      document.getElementById("cardUID").innerText = uid;
-
-      if(name.length > 0) {
-        document.getElementById("cardInitial").innerText =
+          alert("Network Timeout: Unable to write data stream
