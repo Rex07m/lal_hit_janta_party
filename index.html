@@ -5,202 +5,567 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lal Hit Janta Party</title>
 
+  <!-- Google Fonts for Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- html2canvas library for capturing the ID card cleanly -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
+    :root {
+      --primary: #e60000;
+      --primary-dark: #b30000;
+      --primary-glow: rgba(230, 0, 0, 0.15);
+      --bg-dark: #0a0a0c;
+      --bg-surface: #121216;
+      --bg-surface-elevated: #1a1a22;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #272732;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    body{
-      background:#f4f4f4;
-      color:#111;
-      overflow-x:hidden;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    header{
-      background:linear-gradient(135deg,#d10000,#ff1e1e);
-      color:white;
-      padding:40px 20px;
-      text-align:center;
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    header img{
-      width:220px;
-      border-radius:50%;
-      background:white;
-      padding:10px;
-      box-shadow:0 0 20px rgba(0,0,0,0.3);
+    /* HEADER / HERO */
+    header {
+      background: radial-gradient(circle at top, #3a0000 0%, var(--bg-dark) 70%);
+      padding: 100px 20px 60px 20px;
+      text-align: center;
+      position: relative;
     }
 
-    header h1{
-      font-size:3rem;
-      margin-top:20px;
-      font-weight:900;
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+      background: var(--primary);
+      filter: blur(150px);
+      opacity: 0.2;
+      pointer-events: none;
     }
 
-    header p{
-      margin-top:10px;
-      font-size:1.2rem;
+    header img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      padding: 12px;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 30px var(--primary-glow);
+      transition: var(--transition);
     }
 
-    nav{
-      background:black;
-      padding:15px;
-      text-align:center;
-      position:sticky;
-      top:0;
-      z-index:1000;
+    header img:hover {
+      transform: rotate(5deg) scale(1.05);
     }
 
-    nav a{
-      color:white;
-      text-decoration:none;
-      margin:0 15px;
-      font-weight:bold;
-      transition:0.3s;
+    header h1 {
+      font-size: 3.5rem;
+      margin-top: 25px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(to right, #ffffff, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    nav a:hover{
-      color:red;
+    header p {
+      margin-top: 12px;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
-    section{
-      padding:70px 10%;
+    header h3 {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: var(--text-main);
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 30px;
     }
 
-    .section-title{
-      text-align:center;
-      font-size:2.5rem;
-      margin-bottom:40px;
-      color:#c40000;
+    /* NAVIGATION */
+    nav {
+      background: rgba(10, 10, 12, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 18px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
     }
 
-    .about{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:40px;
-      align-items:center;
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
     }
 
-    .about img{
-      width:100%;
-      border-radius:20px;
-      box-shadow:0 0 20px rgba(0,0,0,0.2);
+    nav a:hover {
+      color: var(--primary);
     }
 
-    .about-text{
-      font-size:1.1rem;
-      line-height:1.8;
+    /* SECTIONS */
+    section {
+      padding: 100px 8%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:25px;
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      position: relative;
     }
 
-    .card{
-      background:white;
-      padding:30px;
-      border-radius:15px;
-      box-shadow:0 0 15px rgba(0,0,0,0.1);
-      transition:0.3s;
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 4px;
+      background: var(--primary);
+      margin: 12px auto 0 auto;
+      border-radius: 2px;
     }
 
-    .card:hover{
-      transform:translateY(-8px);
+    /* ABOUT SECTION */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
     }
 
-    .card h3{
-      color:#d10000;
-      margin-bottom:15px;
+    .about-visual {
+      position: relative;
     }
 
-    .join-form{
-      background:white;
-      padding:40px;
-      border-radius:20px;
-      max-width:700px;
-      margin:auto;
-      box-shadow:0 0 20px rgba(0,0,0,0.15);
+    .about-visual::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      background: linear-gradient(135deg, var(--primary), transparent);
+      border-radius: var(--radius-lg);
+      z-index: -1;
+      opacity: 0.3;
+      filter: blur(10px);
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+    }
+
+    .about-text p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* CARDS ARCHITECTURE (VISION & RULES) */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      padding: 40px 30px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(230, 0, 0, 0.3);
+      background: var(--bg-surface-elevated);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      color: var(--text-main);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    #vision .card h3 {
+      color: #ff4d4d;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* FORM STYLE */
+    .join-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .join-form {
+      background: var(--bg-surface);
+      padding: 45px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group-full {
+      grid-column: span 2;
     }
 
     .join-form input,
     .join-form textarea,
-    .join-form select{
-      width:100%;
-      padding:14px;
-      margin:12px 0;
-      border:1px solid #ccc;
-      border-radius:10px;
-      font-size:1rem;
+    .join-form select {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      color: var(--text-main);
+      transition: var(--transition);
+      outline: none;
     }
 
-    .join-form button{
-      width:100%;
-      padding:15px;
-      background:#d10000;
-      color:white;
-      border:none;
-      border-radius:10px;
-      font-size:1rem;
-      font-weight:bold;
+    .join-form input:focus,
+    .join-form textarea:focus,
+    .join-form select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .join-form button {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 700;
       cursor:pointer;
-      transition:0.3s;
+      transition: var(--transition);
+      margin-top: 10px;
     }
 
-    .join-form button:hover{
-      background:black;
+    .join-form button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
     }
 
-    .member-count{
-      text-align:center;
-      margin-top:20px;
-      font-size:1.5rem;
-      font-weight:bold;
-      color:#d10000;
+    .member-count {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
     }
 
-    #cardPreview{
-      margin-top:40px;
-      display:none;
-      background:white;
-      border-radius:20px;
-      padding:30px;
-      max-width:500px;
-      margin-inline:auto;
-      text-align:center;
-      box-shadow:0 0 20px rgba(0,0,0,0.2);
+    .member-count span {
+      color: var(--primary);
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-left: 5px;
     }
 
-    #cardPreview img{
-      width:120px;
-      border-radius:50%;
-      margin-bottom:15px;
+    /* MEMBERSHIP CARD INTERFACE */
+    .card-preview-pane {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
     }
 
-    .download-btn{
-      margin-top:20px;
-      background:black;
+    /* THE PRINTABLE IDENTITY CARD CONTAINER */
+    #idCard {
+      width: 380px;
+      height: 520px;
+      background: linear-gradient(145deg, #1e1e26 0%, #0f0f12 100%);
+      border-radius: 20px;
+      padding: 30px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
     }
 
-    footer{
-      background:black;
-      color:white;
-      text-align:center;
-      padding:30px;
-      margin-top:40px;
+    #idCard::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: var(--primary);
+      filter: blur(60px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .id-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 2px solid rgba(230, 0, 0, 0.3);
+      padding-bottom: 15px;
+    }
+
+    .id-header img {
+      width: 45px;
+      height: 45px;
+      background: white;
+      border-radius: 50%;
+      padding: 3px;
+    }
+
+    .id-header-text h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.5px;
+    }
+
+    .id-header-text p {
+      font-size: 0.65rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .id-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .id-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      background: #1a1a22;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      color: var(--text-muted);
+      font-weight: bold;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
+    .id-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .id-uid {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      background: rgba(230, 0, 0, 0.1);
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .id-meta-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 15px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .id-meta-item label {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .id-meta-item span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .id-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 12px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .id-signature h4 {
+      font-size: 0.85rem;
+      color: #fff;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .download-btn {
+      width: 380px;
+      padding: 14px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+    }
+
+    .download-btn:hover {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 20px var(--primary-glow);
+    }
+
+    .placeholder-text {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 40px;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      text-align: center;
+      padding: 50px 20px;
+      margin-top: 100px;
+    }
+
+    footer h2 {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    footer p {
+      font-size: 0.95rem;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media(max-width:992px){
+      .join-container {
+        grid-template-columns: 1fr;
+      }
+      .card-preview-pane {
+        position: static;
+        margin-top: 40px;
+      }
     }
 
     @media(max-width:768px){
-      .about{
-        grid-template-columns:1fr;
+      .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
 
-      header h1{
-        font-size:2.2rem;
+      header h1 {
+        font-size: 2.4rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group-full {
+        grid-column: span 1;
       }
     }
   </style>
@@ -208,22 +573,16 @@
 
 <body>
 
-  <!-- HEADER -->
-
+  <!-- HEADER / HERO SECTION -->
   <header>
-    <img src="logo.png" alt="Lal Hit Logo">
-
+    <!-- Kept your standard logo reference -->
+    <img src="logo.png" alt="Lal Hit Logo" onerror="this.style.display='none'">
     <h1>LAL HIT JANTA PARTY</h1>
-
     <p>Clean Society. Strong Nation.</p>
-
-    <br>
-
     <h3>Founder: Pritam Kumar Das</h3>
   </header>
 
   <!-- NAVBAR -->
-
   <nav>
     <a href="#about">About</a>
     <a href="#vision">Vision</a>
@@ -232,246 +591,286 @@
   </nav>
 
   <!-- ABOUT -->
-
   <section id="about">
-
     <h2 class="section-title">About The Party</h2>
-
     <div class="about">
-
-      <img src="logo.png" alt="Party Logo">
-
-      <div class="about-text">
-
-        <p>
-          Lal Hit Janta Party is a youth-focused movement against corruption,
-          fake propaganda, political manipulation, and anti-development politics.
-        </p>
-
-        <br>
-
-        <p>
-          Our goal is to build a modern India based on discipline,
-          transparency, technology, development, and public accountability.
-        </p>
-
-        <br>
-
-        <p>
-          We believe politics should serve people — not dynasties,
-          influencers, or corruption networks.
-        </p>
-
+      <div class="about-visual">
+        <img src="logo.png" alt="Party Logo" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=600&q=80'">
       </div>
-
+      <div class="about-text">
+        <p>Lal Hit Janta Party is a youth-focused movement built to counter corruption, fake propaganda, political manipulation, and anti-development platforms.</p>
+        <p>Our operational architecture focuses on constructing a modern nation infrastructure based completely on discipline, absolute transparency, structural tech implementation, and uncompromised public accountability.</p>
+        <p>We firmly believe that governance belongs exclusively to the hard-working citizens—free from the control of political dynasties, unchecked media influencers, or hidden corrupt networks.</p>
+      </div>
     </div>
-
   </section>
 
   <!-- VISION -->
-
   <section id="vision">
-
     <h2 class="section-title">Our Vision</h2>
-
     <div class="cards">
-
       <div class="card">
         <h3>Clean Politics</h3>
-        <p>
-          Remove corruption, fake promises, and criminal influence from politics.
-        </p>
+        <p>Aggressively eliminating corporate corruption, unbacked campaign promises, and criminal elements from the voting ecosystem.</p>
       </div>
-
       <div class="card">
         <h3>Digital India</h3>
-        <p>
-          Transparent governance through technology and public accountability.
-        </p>
+        <p>Enforcing absolute transparent governance protocols directly utilizing high-end software tracking systems and public record databases.</p>
       </div>
-
       <div class="card">
         <h3>Youth Power</h3>
-        <p>
-          Give opportunities to educated and skilled youth leaders.
-        </p>
+        <p>Creating immediate administrative frameworks tailored specifically to transition qualified, technical, and educated youth directly into leadership slots.</p>
       </div>
-
       <div class="card">
         <h3>Development First</h3>
-        <p>
-          Infrastructure, jobs, education, safety, and national growth above all.
-        </p>
+        <p>Prioritizing core modern infrastructure, job creation indices, technical education models, and national defense above individual state agendas.</p>
       </div>
-
     </div>
-
   </section>
 
   <!-- RULES -->
-
   <section id="rules">
-
-    <h2 class="section-title">Party Rules & Regulations</h2>
-
+    <h2 class="section-title">Rules & Regulations</h2>
     <div class="cards">
-
       <div class="card">
-        <h3>No Corruption</h3>
-        <p>Any proven corruption leads to immediate removal.</p>
+        <h3>Zero Tolerance</h3>
+        <p>Any proven or verified incident of internal corruption will results in immediate and permanent administrative termination.</p>
       </div>
-
       <div class="card">
-        <h3>No Hate Politics</h3>
-        <p>Religion and caste politics are strictly prohibited.</p>
+        <h3>No Identity Politics</h3>
+        <p>Any political rhetoric relying on religious manipulation or caste-based divisions is explicitly banned within this party structure.</p>
       </div>
-
       <div class="card">
-        <h3>Public Accountability</h3>
-        <p>Leaders must publish yearly work reports.</p>
+        <h3>Public Auditing</h3>
+        <p>All active leaders are legally required to compile and openly publish fully auditable yearly operational performance blueprints.</p>
       </div>
-
       <div class="card">
-        <h3>Nation First</h3>
-        <p>Development and public welfare above personal power.</p>
+        <h3>Nation Focus</h3>
+        <p>Public socio-economic growth models and domestic safety structures permanently take structural priority over party positioning.</p>
       </div>
-
     </div>
-
   </section>
 
-  <!-- JOIN -->
-
+  <!-- JOIN SECTION WITH LIVE DUAL PANE -->
   <section id="join">
-
     <h2 class="section-title">Join The Movement</h2>
+    
+    <div class="join-container">
+      
+      <!-- REGISTRATION FORM -->
+      <div class="join-form">
+        <div class="form-grid">
+          <div class="form-group-full">
+            <input type="text" id="name" placeholder="Full Name" required>
+          </div>
+          <div>
+            <input type="number" id="age" placeholder="Age" required min="18">
+          </div>
+          <div>
+            <select id="profession" required>
+              <option value="">Select Profession</option>
+              <option value="Student">Student</option>
+              <option value="Engineer">Engineer</option>
+              <option value="Business">Business</option>
+              <option value="Farmer">Farmer</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group-full">
+            <input type="email" id="email" placeholder="Email Address" required>
+          </div>
+          <div class="form-group-full">
+            <input type="text" id="phone" placeholder="Phone Number" required>
+          </div>
+          <div class="form-group-full">
+            <input type="text" id="state" placeholder="State/Union Territory" required>
+          </div>
+          <div class="form-group-full">
+            <textarea id="message" rows="3" placeholder="Why do you want to join Lal Hit Janta Party?"></textarea>
+          </div>
+        </div>
+        
+        <button type="button" onclick="joinParty()">Register Membership</button>
+        
+        <div class="member-count">
+          Total Registered Patriots: <span id="memberCount">0</span>
+        </div>
+      </div>
 
-    <div class="join-form">
+      <!-- DIGITAL ID DISPLAY CARD -->
+      <div class="card-preview-pane">
+        <div id="cardUIWrapper" style="display: none; flex-direction: column; align-items: center; gap: 20px;">
+          
+          <!-- ID Card Block to capture -->
+          <div id="idCard">
+            <div class="id-header">
+              <img src="logo.png" alt="LHJP" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=100&q=80'">
+              <div class="id-header-text">
+                <h2>LAL HIT JANTA PARTY</h2>
+                <p>Official Member Card</p>
+              </div>
+            </div>
 
-      <input type="text" id="name" placeholder="Full Name" required>
+            <div class="id-body">
+              <div class="id-avatar" id="cardInitial">M</div>
+              <div class="id-name" id="cardName">Patriot Name</div>
+              <div class="id-uid" id="cardUID">LHJP-987654</div>
+              
+              <div class="id-meta-grid">
+                <div class="id-meta-item">
+                  <label>Profession</label>
+                  <span id="cardProfession">Professional</span>
+                </div>
+                <div class="id-meta-item">
+                  <label>State</label>
+                  <span id="cardState">Location</span>
+                </div>
+              </div>
+            </div>
 
-      <input type="number" id="age" placeholder="Age" required>
+            <div class="id-footer">
+              <div>
+                <p>ISSUED BY LHJP CENTRAL HQ</p>
+                <p style="font-size:0.55rem; opacity:0.6;">VALID PERMANENTLY</p>
+              </div>
+              <div class="id-signature">
+                <h4>Pritam K. Das</h4>
+                <p style="font-size:0.5rem; text-align:right; opacity:0.5;">FOUNDER</p>
+              </div>
+            </div>
+          </div>
 
-      <input type="email" id="email" placeholder="Email Address" required>
+          <button class="download-btn" onclick="downloadCardImage()">Download Digital ID (PNG)</button>
+        </div>
 
-      <input type="text" id="phone" placeholder="Phone Number" required>
-
-      <input type="text" id="state" placeholder="State" required>
-
-      <select id="profession">
-        <option>Select Profession</option>
-        <option>Student</option>
-        <option>Engineer</option>
-        <option>Business</option>
-        <option>Farmer</option>
-        <option>Other</option>
-      </select>
-
-      <textarea id="message" rows="4" placeholder="Why do you want to join?"></textarea>
-
-      <button onclick="joinParty()">Join Party</button>
-
-      <div class="member-count">
-        Total Members: <span id="memberCount">0</span>
+        <!-- Placeholder when card isn't ready -->
+        <div id="cardPlaceholder" class="placeholder-text">
+          Fill out the registration system on the left to securely mint your custom Digital Membership Card instantly.
+        </div>
       </div>
 
     </div>
-
-    <!-- CARD -->
-
-    <div id="cardPreview">
-
-      <img src="logo.png" alt="logo">
-
-      <h2>LAL HIT JANTA PARTY</h2>
-
-      <p id="cardName"></p>
-      <p id="cardState"></p>
-      <p id="cardProfession"></p>
-
-      <br>
-
-      <strong>Official Member Card</strong>
-
-      <br><br>
-
-      <button class="join-form button download-btn" onclick="downloadCard()">
-        Download Card
-      </button>
-
-    </div>
-
   </section>
 
   <!-- FOOTER -->
-
   <footer>
-
     <h2>LAL HIT JANTA PARTY</h2>
-
     <br>
-
-    <p>Spray Out Corruption. Build A Better Nation.</p>
-
+    <p style="color: var(--primary); font-weight:700; letter-spacing:1px; text-transform:uppercase;">Spray Out Corruption. Build A Better Nation.</p>
     <br>
-
-    <p>Founder: Pritam Kumar Das</p>
-
+    <p>Founder & National Chairman: Pritam Kumar Das</p>
     <br>
-
-    <p>© 2026 All Rights Reserved</p>
-
+    <p style="font-size: 0.8rem; opacity: 0.4;">&copy; 2026 Lal Hit Janta Party. All Rights Reserved. Engineered for structural transparency.</p>
   </footer>
 
-  <!-- SCRIPT -->
-
+  <!-- ACTION LOGIC -->
   <script>
-
-    let members = localStorage.getItem("members")
-      ? JSON.parse(localStorage.getItem("members"))
+    // Initialize or load existing local roster state
+    let members = localStorage.getItem("lhjp_members")
+      ? JSON.parse(localStorage.getItem("lhjp_members"))
       : [];
 
+    // Sync UI counter state
     document.getElementById("memberCount").innerText = members.length;
 
     function joinParty(){
+      const name = document.getElementById("name").value.trim();
+      const age = document.getElementById("age").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const phone = document.getElementById("phone").value.trim();
+      const state = document.getElementById("state").value.trim();
+      const profession = document.getElementById("profession").value;
 
-      let name = document.getElementById("name").value;
-      let state = document.getElementById("state").value;
-      let profession = document.getElementById("profession").value;
-
-      if(name === "" || state === ""){
-        alert("Please fill all required details");
+      // Base Validation Check
+      if(!name || !age || !email || !phone || !state || !profession){
+        alert("Action Required: Please complete all operational fields before hitting registration.");
         return;
       }
 
-      const userData = {
-        name:name,
-        state:state,
-        profession:profession
+      if(parseInt(age) < 18) {
+        alert("Validation Notice: Minimum age required to join political registry is 18.");
+        return;
+      }
+
+      // DUPLICATE RECORD PROTECTION ALGORITHM
+      const absoluteDuplicate = members.find(m => m.email === email || m.phone === phone);
+      if(absoluteDuplicate){
+        alert("Security Lockout: A registration record already exists in our system with this specific Email or Phone Number.");
+        
+        // Immediately load their existing card values instead of locking them out completely
+        populateIdentityCard(absoluteDuplicate.name, absoluteDuplicate.state, absoluteDuplicate.profession, absoluteDuplicate.uid);
+        return;
+      }
+
+      // Generate verifiable Unique ID hash index
+      const uniqueSuffix = Math.floor(100000 + Math.random() * 900000);
+      const assignedUID = `LHJP-${uniqueSuffix}`;
+
+      const newMemberData = {
+        name: name,
+        age: age,
+        email: email,
+        phone: phone,
+        state: state,
+        profession: profession,
+        uid: assignedUID
       };
 
-      members.push(userData);
+      // Push and commit state to Storage Array
+      members.push(newMemberData);
+      localStorage.setItem("lhjp_members", JSON.stringify(members));
 
-      localStorage.setItem("members", JSON.stringify(members));
-
+      // Refresh Counters across Layout
       document.getElementById("memberCount").innerText = members.length;
 
-      document.getElementById("cardPreview").style.display = "block";
-
-      document.getElementById("cardName").innerText = "Member: " + name;
-      document.getElementById("cardState").innerText = "State: " + state;
-      document.getElementById("cardProfession").innerText = "Profession: " + profession;
-
-      alert("Welcome to Lal Hit Janta Party!");
-
+      // Populate Graphic Card Layout
+      populateIdentityCard(name, state, profession, assignedUID);
+      
+      alert(`Welcome Comrade! Your membership is confirmed. Your unique tracking number is ${assignedUID}`);
     }
 
-    function downloadCard(){
+    function populateIdentityCard(name, state, profession, uid) {
+      document.getElementById("cardPlaceholder").style.display = "none";
+      document.getElementById("cardUIWrapper").style.display = "flex";
 
-      window.print();
+      document.getElementById("cardName").innerText = name;
+      document.getElementById("cardState").innerText = state;
+      document.getElementById("cardProfession").innerText = profession;
+      document.getElementById("cardUID").innerText = uid;
 
+      // Extract first letter for visual identity block avatar
+      if(name.length > 0) {
+        document.getElementById("cardInitial").innerText = name.charAt(0);
+      }
     }
 
+    // MODERN RENDER PROTOCOL VIA HTML2CANVAS
+    function downloadCardImage() {
+      const cardTarget = document.getElementById("idCard");
+      const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
+
+      // Use a configuration object for html2canvas to guarantee deep color retention
+      html2canvas(cardTarget, {
+        scale: 2, // Doubles rendering resolution for clean visibility on displays
+        backgroundColor: null, // Keeps background transparent outside the card edges
+        useCORS: true, // Prevents clean image block corruption
+        logging: false
+      }).then(canvas => {
+        const generatedImageURL = canvas.toDataURL("image/png");
+        
+        // Simulating programmatic click step to drop the asset file instantly
+        const downloadHook = document.createElement('a');
+        downloadHook.href = generatedImageURL;
+        downloadHook.download = `LHJP_Member_${memberName}.png`;
+        document.body.appendChild(downloadHook);
+        downloadHook.click();
+        document.body.removeChild(downloadHook);
+      }).catch(err => {
+        console.error("Render Engine Fault:", err);
+        alert("Rendering error encountered. Defaulting back to local system printing window context.");
+        window.print();
+      });
+    }
   </script>
 
 </body>
