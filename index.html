@@ -100,7 +100,7 @@
       text-align: center;
       position: sticky;
       top: 0;
- z-index: 1000;
+      z-index: 1000;
       border-bottom: 1px solid var(--border);
     }
 
@@ -297,7 +297,7 @@
       font-weight: 800;
     }
 
-    /* CARD DISPLAY - PREMIUM DYNAMIC RENDER */
+    /* CARD DISPLAY */
     .card-preview-pane {
       position: sticky;
       top: 100px;
@@ -889,7 +889,7 @@
   </footer>
 
   <script>
-    // Configuration parameters mapping directly to your live sandbox project environment
+    // Production API Configuration parameters mapping directly to your live console variables
     const firebaseConfig = {
       apiKey: "AIzaSyAU0qbJg9s8yanJ_DKd_gD7pE1W3V4A5B6",
       authDomain: "lal-hi-janta-party.firebaseapp.com",
@@ -1040,4 +1040,9 @@
       document.getElementById("cardUIWrapper").style.display = "flex";
 
       document.getElementById("cardName").innerText = name;
-      document.getElementById("cardState
+      document.getElementById("cardState").innerText = state;
+      document.getElementById("cardProfession").innerText = profession;
+      document.getElementById("cardUID").innerText = uid;
+
+      if(name.length > 0) {
+        document.getElementById("cardInitial").innerText =
