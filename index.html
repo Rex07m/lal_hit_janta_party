@@ -319,7 +319,6 @@
       box-shadow: 0 30px 60px rgba(0,0,0,0.8);
     }
 
-    /* Elite Structural Red Corners Graphic Accents */
     #idCard::before {
       content: '';
       position: absolute;
@@ -344,7 +343,6 @@
       pointer-events: none;
     }
 
-    /* Background Architectural Dome Silhouette Overlay simulating image details */
     .id-bg-watermark {
       position: absolute;
       right: -20px;
@@ -687,7 +685,7 @@
 <body>
 
   <header>
-    <img src="logo.png" alt="Lal Hit Logo" onerror="this.style.display='none'">
+    <img src="logo.png" alt="Lal Hit Logo" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=150&q=80'">
     <h1>LAL HIT JANTA PARTY</h1>
     <p>Clean Society. Strong Nation.</p>
     <h3>Founder: Pritam Kumar Das</h3>
@@ -1004,4 +1002,43 @@
 
     function populateIdentityCard(name, state, profession, uid) {
       document.getElementById("cardPlaceholder").style.display = "none";
-      document
+      document.getElementById("cardUIWrapper").style.display = "flex";
+
+      document.getElementById("cardName").innerText = name;
+      document.getElementById("cardState").innerText = state;
+      document.getElementById("cardProfession").innerText = profession;
+      document.getElementById("cardUID").innerText = uid;
+
+      if(name.length > 0) {
+        document.getElementById("cardInitial").innerText = name.charAt(0);
+      }
+    }
+
+    // CANVAS MINT DOWNLOAD ROUTINE WITH CROSS-ORIGIN BYPASS
+    function downloadCardImage() {
+      const cardTarget = document.getElementById("idCard");
+      const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
+
+      html2canvas(cardTarget, {
+        scale: 3, 
+        backgroundColor: null,
+        useCORS: false, // Turned off to completely bypass cross-origin security blockages on empty values
+        allowTaint: true, // Allows cross-origin elements to taint the canvas safely for local file use
+        logging: false
+      }).then(canvas => {
+        const generatedImageURL = canvas.toDataURL("image/png");
+        const downloadHook = document.createElement('a');
+        downloadHook.href = generatedImageURL;
+        downloadHook.download = `LHJP_Card_${memberName}.png`;
+        document.body.appendChild(downloadHook);
+        downloadHook.click();
+        document.body.removeChild(downloadHook);
+      }).catch(err => {
+        console.error("Render Engine Error:", err);
+        window.print();
+      });
+    }
+  </script>
+
+</body>
+</html>
