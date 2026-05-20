@@ -5,25 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lal Hit Janta Party</title>
 
-  <!-- Google Fonts for Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
   
-  <!-- html2canvas library for capturing the ID card cleanly -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     :root {
       --primary: #e60000;
       --primary-dark: #b30000;
-      --primary-glow: rgba(230, 0, 0, 0.15);
-      --bg-dark: #0a0a0c;
-      --bg-surface: #121216;
-      --bg-surface-elevated: #1a1a22;
+      --primary-glow: rgba(230, 0, 0, 0.25);
+      --bg-dark: #070709;
+      --bg-surface: #0f0f14;
+      --bg-surface-elevated: #16161f;
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
-      --border: #272732;
+      --border: #22222e;
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 24px;
@@ -46,24 +44,10 @@
 
     /* HEADER / HERO */
     header {
-      background: radial-gradient(circle at top, #3a0000 0%, var(--bg-dark) 70%);
+      background: radial-gradient(circle at top, #4a0000 0%, var(--bg-dark) 70%);
       padding: 100px 20px 60px 20px;
       text-align: center;
       position: relative;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      height: 300px;
-      background: var(--primary);
-      filter: blur(150px);
-      opacity: 0.2;
-      pointer-events: none;
     }
 
     header img {
@@ -74,11 +58,6 @@
       padding: 12px;
       border: 2px solid var(--primary);
       box-shadow: 0 0 30px var(--primary-glow);
-      transition: var(--transition);
-    }
-
-    header img:hover {
-      transform: rotate(5deg) scale(1.05);
     }
 
     header h1 {
@@ -111,7 +90,7 @@
 
     /* NAVIGATION */
     nav {
-      background: rgba(10, 10, 12, 0.8);
+      background: rgba(7, 7, 9, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       padding: 18px;
@@ -147,8 +126,6 @@
       font-size: 2.5rem;
       margin-bottom: 50px;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      position: relative;
     }
 
     .section-title::after {
@@ -169,26 +146,10 @@
       align-items: center;
     }
 
-    .about-visual {
-      position: relative;
-    }
-
-    .about-visual::before {
-      content: '';
-      position: absolute;
-      inset: -10px;
-      background: linear-gradient(135deg, var(--primary), transparent);
-      border-radius: var(--radius-lg);
-      z-index: -1;
-      opacity: 0.3;
-      filter: blur(10px);
-    }
-
     .about img {
       width: 100%;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      background: var(--bg-surface);
     }
 
     .about-text p {
@@ -197,7 +158,7 @@
       margin-bottom: 20px;
     }
 
-    /* CARDS ARCHITECTURE (VISION & RULES) */
+    /* CARDS */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -210,52 +171,27 @@
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
       transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--primary);
-      opacity: 0;
-      transition: var(--transition);
     }
 
     .card:hover {
       transform: translateY(-5px);
       border-color: rgba(230, 0, 0, 0.3);
       background: var(--bg-surface-elevated);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .card:hover::before {
-      opacity: 1;
     }
 
     .card h3 {
       font-size: 1.4rem;
-      color: var(--text-main);
-      margin-bottom: 15px;
-      font-weight: 700;
-    }
-
-    #vision .card h3 {
       color: #ff4d4d;
+      margin-bottom: 15px;
     }
 
     .card p {
       color: var(--text-muted);
-      font-size: 1rem;
     }
 
-    /* FORM STYLE */
+    /* DUAL AXIS WORKFLOW INTERFACE */
     .join-container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -263,12 +199,26 @@
       align-items: start;
     }
 
+    .auth-column {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
     .join-form {
       background: var(--bg-surface);
-      padding: 45px;
+      padding: 40px;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .join-form h3 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
     }
 
     .form-grid {
@@ -291,8 +241,8 @@
       border-radius: var(--radius-md);
       font-size: 0.95rem;
       color: var(--text-main);
-      transition: var(--transition);
       outline: none;
+      transition: var(--transition);
     }
 
     .join-form input:focus,
@@ -302,7 +252,7 @@
       box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
-    .join-form button {
+    .btn-action {
       width: 100%;
       padding: 16px;
       background: var(--primary);
@@ -311,36 +261,279 @@
       border-radius: var(--radius-md);
       font-size: 1rem;
       font-weight: 700;
-      cursor:pointer;
+      cursor: pointer;
       transition: var(--transition);
       margin-top: 10px;
     }
 
-    .join-form button:hover {
+    .btn-action:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #232330;
     }
 
     .member-count {
       text-align: center;
       margin-top: 25px;
       font-size: 1.1rem;
-      font-weight: 600;
       color: var(--text-muted);
     }
 
     .member-count span {
       color: var(--primary);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 800;
-      margin-left: 5px;
     }
 
-    /* OTP MODAL CONTAINER */
+    /* PREMIUM CARD GRAPHICS (ANIMATED & SHIMMERING) */
+    .card-preview-pane {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    /* Dynamic Border Gradient Wrapper */
+    .id-card-gradient-edge {
+      padding: 4px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #333 0%, #111 50%, #333 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+    }
+
+    /* Flowing glow ring animation */
+    .id-card-gradient-edge::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 30%, var(--primary) 50%, transparent 70%);
+      animation: rotateGlow 6s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #idCard {
+      width: 380px;
+      height: 530px;
+      background: linear-gradient(145deg, #13131a 0%, #08080b 100%);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* Abstract Line Geometry Grid / Watermark */
+    #idCard::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(230, 0, 0, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(230, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .id-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 2px solid rgba(230, 0, 0, 0.4);
+      padding-bottom: 15px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .id-header img {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 50%;
+      padding: 3px;
+    }
+
+    .id-header-text h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.5px;
+    }
+
+    .id-header-text p {
+      font-size: 0.65rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .id-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 15px 0;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    .id-avatar-container {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .id-avatar {
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #22222f 0%, #0f0f14 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 2.2rem;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    /* Metallic Security Hologram Emblem */
+    .id-hologram {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #a8caba 0%, #5d4157 100%);
+      border: 1px solid rgba(255,255,255,0.4);
+      opacity: 0.85;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .id-name {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .id-uid {
+      font-size: 0.8rem;
+      color: #ff4d4d;
+      font-weight: 800;
+      background: rgba(230, 0, 0, 0.15);
+      padding: 3px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(230,0,0,0.2);
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .id-meta-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(5px);
+    }
+
+    .id-meta-item label {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .id-meta-item span {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .id-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 12px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 3;
+    }
+
+    .id-signature h4 {
+      font-size: 0.9rem;
+      color: #fff;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .download-btn {
+      width: 388px;
+      padding: 15px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+    }
+
+    .download-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .placeholder-text {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 50px;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+    }
+
+    /* OTP MODAL */
     .otp-modal {
       position: fixed;
       inset: 0;
-      background: rgba(5, 5, 6, 0.85);
+      background: rgba(5, 5, 7, 0.9);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       display: flex;
@@ -365,34 +558,13 @@
       width: 100%;
       max-width: 440px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      transform: scale(0.9);
-      transition: var(--transition);
     }
 
-    .otp-modal.active .otp-box {
-      transform: scale(1);
-    }
-
-    .otp-box h3 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .otp-box p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 25px;
-    }
-
-    /* Highlight box simulating notification capture */
     .otp-alert-sim {
       background: rgba(230, 0, 0, 0.1);
       border: 1px dashed var(--primary);
       padding: 12px;
       border-radius: var(--radius-md);
-      font-size: 0.85rem;
       color: #ff6b6b;
       margin-bottom: 20px;
       font-weight: 600;
@@ -416,232 +588,16 @@
       font-weight: 700;
       color: white;
       outline: none;
-      transition: var(--transition);
     }
 
     .otp-inputs input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-glow);
     }
 
     .otp-actions {
       display: flex;
       flex-direction: column;
       gap: 12px;
-    }
-
-    .otp-btn-verify {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: var(--radius-md);
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .otp-btn-verify:hover {
-      background: var(--primary-dark);
-    }
-
-    .otp-btn-cancel {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 12px;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .otp-btn-cancel:hover {
-      background: rgba(255, 255, 255, 0.03);
-      color: white;
-    }
-
-    /* MEMBERSHIP CARD INTERFACE */
-    .card-preview-pane {
-      position: sticky;
-      top: 100px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 25px;
-    }
-
-    /* THE PRINTABLE IDENTITY CARD CONTAINER */
-    #idCard {
-      width: 380px;
-      height: 520px;
-      background: linear-gradient(145deg, #1e1e26 0%, #0f0f12 100%);
-      border-radius: 20px;
-      padding: 30px;
-      position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-    }
-
-    #idCard::before {
-      content: '';
-      position: absolute;
-      top: -50px;
-      right: -50px;
-      width: 150px;
-      height: 150px;
-      background: var(--primary);
-      filter: blur(60px);
-      opacity: 0.15;
-      pointer-events: none;
-    }
-
-    .id-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      border-bottom: 2px solid rgba(230, 0, 0, 0.3);
-      padding-bottom: 15px;
-    }
-
-    .id-header img {
-      width: 45px;
-      height: 45px;
-      background: white;
-      border-radius: 50%;
-      padding: 3px;
-    }
-
-    .id-header-text h2 {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: white;
-      letter-spacing: 0.5px;
-    }
-
-    .id-header-text p {
-      font-size: 0.65rem;
-      color: var(--primary);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .id-body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    .id-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3px solid var(--primary);
-      background: #1a1a22;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-      color: var(--text-muted);
-      font-weight: bold;
-      font-size: 2rem;
-      text-transform: uppercase;
-    }
-
-    .id-name {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .id-uid {
-      font-size: 0.8rem;
-      color: var(--primary);
-      font-weight: 700;
-      background: rgba(230, 0, 0, 0.1);
-      padding: 2px 10px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-
-    .id-meta-grid {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 15px;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .id-meta-item label {
-      display: block;
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .id-meta-item span {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .id-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 12px;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .id-signature h4 {
-      font-size: 0.85rem;
-      color: #fff;
-      font-style: italic;
-      font-weight: 500;
-    }
-
-    .download-btn {
-      width: 380px;
-      padding: 14px;
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: var(--radius-md);
-      font-weight: 700;
-      cursor: pointer;
-      transition: var(--transition);
-      box-shadow: 0 4px 15px rgba(255,255,255,0.1);
-    }
-
-    .download-btn:hover {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 4px 20px var(--primary-glow);
-    }
-
-    .placeholder-text {
-      color: var(--text-muted);
-      font-style: italic;
-      text-align: center;
-      padding: 40px;
-      border: 2px dashed var(--border);
-      border-radius: var(--radius-lg);
-      width: 100%;
     }
 
     /* FOOTER */
@@ -657,48 +613,17 @@
     footer h2 {
       color: #fff;
       font-weight: 800;
-      letter-spacing: 0.5px;
     }
 
-    footer p {
-      font-size: 0.95rem;
-    }
-
-    /* RESPONSIVE DESIGN */
     @media(max-width:992px){
-      .join-container {
-        grid-template-columns: 1fr;
-      }
-      .card-preview-pane {
-        position: static;
-        margin-top: 40px;
-      }
-    }
-
-    @media(max-width:768px){
-      .about {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      header h1 {
-        font-size: 2.4rem;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-group-full {
-        grid-column: span 1;
-      }
+      .join-container { grid-template-columns: 1fr; }
+      .card-preview-pane { position: static; margin-top: 40px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER / HERO SECTION -->
   <header>
     <img src="logo.png" alt="Lal Hit Logo" onerror="this.style.display='none'">
     <h1>LAL HIT JANTA PARTY</h1>
@@ -706,30 +631,24 @@
     <h3>Founder: Pritam Kumar Das</h3>
   </header>
 
-  <!-- NAVBAR -->
   <nav>
     <a href="#about">About</a>
     <a href="#vision">Vision</a>
     <a href="#rules">Rules</a>
-    <a href="#join">Join Us</a>
+    <a href="#join">Join & Access Portal</a>
   </nav>
 
-  <!-- ABOUT -->
   <section id="about">
     <h2 class="section-title">About The Party</h2>
     <div class="about">
-      <div class="about-visual">
-        <img src="logo.png" alt="Party Logo" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=600&q=80'">
-      </div>
+      <img src="logo.png" alt="Party Logo" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=600&q=80'">
       <div class="about-text">
         <p>Lal Hit Janta Party is a youth-focused movement built to counter corruption, fake propaganda, political manipulation, and anti-development platforms.</p>
         <p>Our operational architecture focuses on constructing a modern nation infrastructure based completely on discipline, absolute transparency, structural tech implementation, and uncompromised public accountability.</p>
-        <p>We firmly believe that governance belongs exclusively to the hard-working citizens—free from the control of political dynasties, unchecked media influencers, or hidden corrupt networks.</p>
       </div>
     </div>
   </section>
 
-  <!-- VISION -->
   <section id="vision">
     <h2 class="section-title">Our Vision</h2>
     <div class="cards">
@@ -745,163 +664,146 @@
         <h3>Youth Power</h3>
         <p>Creating immediate administrative frameworks tailored specifically to transition qualified, technical, and educated youth directly into leadership slots.</p>
       </div>
-      <div class="card">
-        <h3>Development First</h3>
-        <p>Prioritizing core modern infrastructure, job creation indices, technical education models, and national defense above individual state agendas.</p>
-      </div>
     </div>
   </section>
 
-  <!-- RULES -->
-  <section id="rules">
-    <h2 class="section-title">Rules & Regulations</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Zero Tolerance</h3>
-        <p>Any proven or verified incident of internal corruption will results in immediate and permanent administrative termination.</p>
-      </div>
-      <div class="card">
-        <h3>No Identity Politics</h3>
-        <p>Any political rhetoric relying on religious manipulation or caste-based divisions is explicitly banned within this party structure.</p>
-      </div>
-      <div class="card">
-        <h3>Public Auditing</h3>
-        <p>All active leaders are legally required to compile and openly publish fully auditable yearly operational performance blueprints.</p>
-      </div>
-      <div class="card">
-        <h3>Nation Focus</h3>
-        <p>Public socio-economic growth models and domestic safety structures permanently take structural priority over party positioning.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- JOIN SECTION WITH LIVE DUAL PANE -->
   <section id="join">
-    <h2 class="section-title">Join The Movement</h2>
+    <h2 class="section-title">Membership Portal</h2>
     
     <div class="join-container">
       
-      <!-- REGISTRATION FORM -->
-      <div class="join-form">
-        <div class="form-grid">
-          <div class="form-group-full">
-            <input type="text" id="name" placeholder="Full Name" required>
-          </div>
-          <div>
-            <input type="number" id="age" placeholder="Age" required min="18">
-          </div>
-          <div>
-            <select id="profession" required>
-              <option value="">Select Profession</option>
-              <option value="Student">Student</option>
-              <option value="Engineer">Engineer</option>
-              <option value="Business">Business</option>
-              <option value="Farmer">Farmer</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="form-group-full">
-            <input type="email" id="email" placeholder="Email Address" required>
-          </div>
-          <div class="form-group-full">
-            <input type="text" id="phone" placeholder="Phone Number" required>
-          </div>
-          <div class="form-group-full">
-            <input type="text" id="state" placeholder="State/Union Territory" required>
-          </div>
-          <div class="form-group-full">
-            <textarea id="message" rows="3" placeholder="Why do you want to join Lal Hit Janta Party?"></textarea>
+      <div class="auth-column">
+        <div class="join-form" style="background: linear-gradient(135deg, #0e1611 0%, var(--bg-surface) 100%); border-color: #1b3a24;">
+          <h3>Access Existing Membership</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">Already registered? Enter your email or phone number to verify identity and retrieve your premium ID card asset instantly.</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <input type="text" id="loginKey" placeholder="Registered Email or Phone Number">
+            <button type="button" class="btn-action btn-secondary" onclick="processExistingUserLogin()">Verify & Load Account</button>
           </div>
         </div>
-        
-        <button type="button" onclick="initiateRegistrationWorkflow()">Register Membership</button>
-        
-        <div class="member-count">
-          Total Registered Patriots: <span id="memberCount">0</span>
+
+        <div class="join-form">
+          <h3>Register New Membership</h3>
+          <div class="form-grid">
+            <div class="form-group-full">
+              <input type="text" id="name" placeholder="Full Name" required>
+            </div>
+            <div>
+              <input type="number" id="age" placeholder="Age" required min="18">
+            </div>
+            <div>
+              <select id="profession" required>
+                <option value="">Select Profession</option>
+                <option value="Student">Student</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Business">Business</option>
+                <option value="Farmer">Farmer</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group-full">
+              <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group-full">
+              <input type="text" id="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group-full">
+              <input type="text" id="state" placeholder="State/Union Territory" required>
+            </div>
+            <div class="form-group-full">
+              <textarea id="message" rows="2" placeholder="Why do you want to join Lal Hit Janta Party?"></textarea>
+            </div>
+          </div>
+          
+          <button type="button" class="btn-action" onclick="initiateRegistrationWorkflow()">Verify via OTP & Register</button>
+          
+          <div class="member-count">
+            Total Registered Patriots: <span id="memberCount">0</span>
+          </div>
         </div>
       </div>
 
-      <!-- DIGITAL ID DISPLAY CARD -->
       <div class="card-preview-pane">
         <div id="cardUIWrapper" style="display: none; flex-direction: column; align-items: center; gap: 20px;">
           
-          <!-- ID Card Block to capture -->
-          <div id="idCard">
-            <div class="id-header">
-              <img src="logo.png" alt="LHJP" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=100&q=80'">
-              <div class="id-header-text">
-                <h2>LAL HIT JANTA PARTY</h2>
-                <p>Official Member Card</p>
-              </div>
-            </div>
-
-            <div class="id-body">
-              <div class="id-avatar" id="cardInitial">M</div>
-              <div class="id-name" id="cardName">Patriot Name</div>
-              <div class="id-uid" id="cardUID">LHJP-987654</div>
-              
-              <div class="id-meta-grid">
-                <div class="id-meta-item">
-                  <label>Profession</label>
-                  <span id="cardProfession">Professional</span>
-                </div>
-                <div class="id-meta-item">
-                  <label>State</label>
-                  <span id="cardState">Location</span>
+          <div class="id-card-gradient-edge">
+            <div id="idCard">
+              <div class="id-header">
+                <img src="logo.png" alt="LHJP" onerror="this.src='https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=100&q=80'">
+                <div class="id-header-text">
+                  <h2>LAL HIT JANTA PARTY</h2>
+                  <p>Official Member Card</p>
                 </div>
               </div>
-            </div>
 
-            <div class="id-footer">
-              <div>
-                <p>ISSUED BY LHJP CENTRAL HQ</p>
-                <p style="font-size:0.55rem; opacity:0.6;">VALID PERMANENTLY</p>
+              <div class="id-body">
+                <div class="id-avatar-container">
+                  <div class="id-avatar" id="cardInitial">P</div>
+                  <div class="id-hologram"></div>
+                </div>
+                <div class="id-name" id="cardName">Patriot Name</div>
+                <div class="id-uid" id="cardUID">LHJP-529879</div>
+                
+                <div class="id-meta-grid">
+                  <div class="id-meta-item">
+                    <label>Profession</label>
+                    <span id="cardProfession">Student</span>
+                  </div>
+                  <div class="id-meta-item">
+                    <label>State</label>
+                    <span id="cardState">West Bengal</span>
+                  </div>
+                </div>
               </div>
-              <div class="id-signature">
-                <h4>Pritam K. Das</h4>
-                <p style="font-size:0.5rem; text-align:right; opacity:0.5;">FOUNDER</p>
+
+              <div class="id-footer">
+                <div>
+                  <p>ISSUED BY LHJP CENTRAL HQ</p>
+                  <p style="font-size:0.55rem; opacity:0.6;">VALID PERMANENTLY</p>
+                </div>
+                <div class="id-signature">
+                  <h4>Pritam K. Das</h4>
+                  <p style="font-size:0.5rem; text-align:right; opacity:0.5;">FOUNDER</p>
+                </div>
               </div>
             </div>
           </div>
 
-          <button class="download-btn" onclick="downloadCardImage()">Download Digital ID (PNG)</button>
+          <button class="download-btn" onclick="downloadCardImage()">Download Digital ID Asset (PNG)</button>
         </div>
 
-        <!-- Placeholder when card isn't ready -->
         <div id="cardPlaceholder" class="placeholder-text">
-          Fill out the registration system on the left to securely mint your custom Digital Membership Card instantly.
+          Authenticate or fill out the dashboard registry system to access and render your high-graphics membership asset.
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- INTERACTIVE OTP MODAL SYSTEM -->
   <div class="otp-modal" id="otpModal">
     <div class="otp-box">
       <h3>Security Verification</h3>
       <p>Enter the 4-digit verification token sent to your device credentials.</p>
       
-      <!-- Simulated live network alerts -->
-      <div class="otp-alert-sim" id="otpAlertBox">
+      <div class="otp-alert-sim">
         Simulated Gateway Transmission Success! Code: <span id="simulatedCodeDisplay" style="font-weight:800; text-decoration: underline;">0000</span>
       </div>
 
       <div class="otp-inputs">
         <input type="text" maxlength="1" id="otp1" oninput="shiftOtpFocus(this, 'otp2')" onkeydown="handleOtpBackspace(event, null, 'otp1')">
         <input type="text" maxlength="1" id="otp2" oninput="shiftOtpFocus(this, 'otp3')" onkeydown="handleOtpBackspace(event, 'otp1', 'otp2')">
-        <input type="text" maxlength="1" id="otp3" oninput="shiftOtpFocus(this, 'otp4')" onkeydown="onkeydown=handleOtpBackspace(event, 'otp2', 'otp3')">
+        <input type="text" maxlength="1" id="otp3" oninput="shiftOtpFocus(this, 'otp4')" onkeydown="handleOtpBackspace(event, 'otp2', 'otp3')">
         <input type="text" maxlength="1" id="otp4" oninput="shiftOtpFocus(this, null)" onkeydown="handleOtpBackspace(event, 'otp3', 'otp4')">
       </div>
 
       <div class="otp-actions">
-        <button class="otp-btn-verify" onclick="verifyOtpAndCommitRegistration()">Verify & Authorize Identity</button>
-        <button class="otp-btn-cancel" onclick="closeOtpVerificationModal()">Cancel</button>
+        <button class="otp-btn-verify" style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:700; cursor:pointer;" onclick="verifyOtpAndCommitRegistration()">Verify & Authorize Identity</button>
+        <button class="btn-action btn-secondary" style="margin-top:0;" onclick="closeOtpVerificationModal()">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <h2>LAL HIT JANTA PARTY</h2>
     <br>
@@ -909,12 +811,10 @@
     <br>
     <p>Founder & National Chairman: Pritam Kumar Das</p>
     <br>
-    <p style="font-size: 0.8rem; opacity: 0.4;">&copy; 2026 Lal Hit Janta Party. All Rights Reserved. Engineered for structural transparency.</p>
+    <p style="font-size: 0.8rem; opacity: 0.4;">&copy; 2026 Lal Hit Janta Party. All Rights Reserved.</p>
   </footer>
 
-  <!-- ACTION LOGIC -->
   <script>
-    // Global variable tracking current runtime context data state variables
     let members = localStorage.getItem("lhjp_members")
       ? JSON.parse(localStorage.getItem("lhjp_members"))
       : [];
@@ -922,10 +822,29 @@
     let currentGeneratedOTP = "";
     let temporaryRegistrationPayload = null;
 
-    // Sync UI counter state
     document.getElementById("memberCount").innerText = members.length;
 
-    // INTERCEPT STEP: Checks fields and initiates verification window
+    // LOGIN PROTOCOL LOGIC FOR RETURNING USERS
+    function processExistingUserLogin() {
+      const loginKey = document.getElementById("loginKey").value.trim().toLowerCase();
+      
+      if(!loginKey) {
+        alert("Authentication Error: Please input an email address or mobile number to look up your membership details.");
+        return;
+      }
+
+      // Query local storage array database index mapping criteria fields
+      const matchingAccount = members.find(m => m.email === loginKey || m.phone === loginKey);
+
+      if(matchingAccount) {
+        populateIdentityCard(matchingAccount.name, matchingAccount.state, matchingAccount.profession, matchingAccount.uid);
+        alert(`Access Granted: Welcome back, ${matchingAccount.name}! Your permanent membership card has been loaded.`);
+      } else {
+        alert("Record Not Found: No identity matching those details exists in this registry database. Please fill out the registration system below.");
+      }
+    }
+
+    // REGISTRATION PROCESSING
     function initiateRegistrationWorkflow() {
       const name = document.getElementById("name").value.trim();
       const age = document.getElementById("age").value.trim();
@@ -934,9 +853,8 @@
       const state = document.getElementById("state").value.trim();
       const profession = document.getElementById("profession").value;
 
-      // Base Structural Validation
       if(!name || !age || !email || !phone || !state || !profession){
-        alert("Action Required: Please complete all operational fields before requesting authentication.");
+        alert("Action Required: Please complete all data entry input structures before attempting authorization.");
         return;
       }
 
@@ -945,32 +863,26 @@
         return;
       }
 
-      // DUPLICATE RECORD PROTECTION CHECK
+      // NO-DUPLICATE INTERCEPT PROTOCOL
       const absoluteDuplicate = members.find(m => m.email === email || m.phone === phone);
       if(absoluteDuplicate){
-        alert("Security Lockout: A registration record already exists with this specific Email or Phone Number.");
+        alert("Security Lockout: This profile already holds an active registry inside our ecosystem. Loading existing card layout asset.");
         populateIdentityCard(absoluteDuplicate.name, absoluteDuplicate.state, absoluteDuplicate.profession, absoluteDuplicate.uid);
         return;
       }
 
-      // Generate Random 4 Digit Verification Code
       currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
-      
-      // Store inputs into a temporary sandbox state until valid code verification
       temporaryRegistrationPayload = { name, age, email, phone, state, profession };
 
-      // Clear old input strings out of text boxes
       for (let i = 1; i <= 4; i++) {
         document.getElementById(`otp${i}`).value = "";
       }
 
-      // Show Gateway Modal Panel on screen interface
       document.getElementById("simulatedCodeDisplay").innerText = currentGeneratedOTP;
       document.getElementById("otpModal").classList.add("active");
       document.getElementById("otp1").focus();
     }
 
-    // OTP NAVIGATION CONTROLLERS
     function shiftOtpFocus(currentElement, nextInputId) {
       if (currentElement.value.length >= 1 && nextInputId) {
         document.getElementById(nextInputId).focus();
@@ -989,24 +901,17 @@
       currentGeneratedOTP = "";
     }
 
-    // VALIDATE CODE STEP: Verifies input code match string criteria
     function verifyOtpAndCommitRegistration() {
       let enteredCode = "";
       for (let i = 1; i <= 4; i++) {
         enteredCode += document.getElementById(`otp${i}`).value.trim();
       }
 
-      if (enteredCode.length < 4) {
-        alert("Security Alert: Enter the complete 4-digit authentication code.");
-        return;
-      }
-
       if (enteredCode !== currentGeneratedOTP) {
-        alert("Authentication Failed: The verification token entered is invalid. Try again.");
+        alert("Authentication Failed: The verification token entered is invalid. Please double check configuration parameters.");
         return;
       }
 
-      // Process and commit to database storage after passing security check
       const uniqueSuffix = Math.floor(100000 + Math.random() * 900000);
       const assignedUID = `LHJP-${uniqueSuffix}`;
 
@@ -1015,17 +920,14 @@
         uid: assignedUID
       };
 
-      // Push and commit state down to disk registry arrays
       members.push(finalMemberProfile);
       localStorage.setItem("lhjp_members", JSON.stringify(members));
 
-      // Update screen visual components
       document.getElementById("memberCount").innerText = members.length;
       populateIdentityCard(finalMemberProfile.name, finalMemberProfile.state, finalMemberProfile.profession, assignedUID);
       
-      // Close active modal frame overlays
       closeOtpVerificationModal();
-      alert(`Identity Confirmed! Welcome to the movement. Custom Digital ID generated.`);
+      alert(`Identity Confirmed! Your security profile hash index has been logged successfully.`);
     }
 
     function populateIdentityCard(name, state, profession, uid) {
@@ -1042,26 +944,26 @@
       }
     }
 
-    // HIGH DEF IMAGE MINT PROTOCOL VIA CANVAS API Engine
+    // CANVAS MINT DOWNLOAD ROUTINE
     function downloadCardImage() {
       const cardTarget = document.getElementById("idCard");
       const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
 
       html2canvas(cardTarget, {
-        scale: 2, 
-        backgroundColor: null, 
-        useCORS: true, 
+        scale: 3, // Boosted to 3x scale resolution rendering for crystalline detail
+        backgroundColor: null,
+        useCORS: true,
         logging: false
       }).then(canvas => {
         const generatedImageURL = canvas.toDataURL("image/png");
         const downloadHook = document.createElement('a');
         downloadHook.href = generatedImageURL;
-        downloadHook.download = `LHJP_Member_${memberName}.png`;
+        downloadHook.download = `LHJP_Premium_Card_${memberName}.png`;
         document.body.appendChild(downloadHook);
         downloadHook.click();
         document.body.removeChild(downloadHook);
       }).catch(err => {
-        console.error("Render Engine Fault:", err);
+        console.error("Render Engine Engine Error Context:", err);
         window.print();
       });
     }
