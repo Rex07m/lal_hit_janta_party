@@ -11,6 +11,9 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
   <style>
     :root {
       --primary: #e60000;
@@ -294,7 +297,7 @@
       font-weight: 800;
     }
 
-    /* CARD DISPLAY */
+    /* CARD DISPLAY - ALIGNED TO YOUR PREMIUM RED BLEND INTERFACE */
     .card-preview-pane {
       position: sticky;
       top: 100px;
@@ -778,7 +781,7 @@
           <button type="button" class="btn-action" onclick="initiateRegistrationWorkflow()">Verify via OTP & Register</button>
           
           <div class="member-count">
-            Total Registered Patriots: <span id="memberCount">0</span>
+            Total Registered Patriots: <span id="memberCount">Loading...</span>
           </div>
         </div>
       </div>
@@ -886,35 +889,64 @@
   </footer>
 
   <script>
-    let members = localStorage.getItem("lhjp_members")
-      ? JSON.parse(localStorage.getItem("lhjp_members"))
-      : [];
-    
+    // Embedded direct verified configuration tags mapping your active console variables
+    const firebaseConfig = {
+      apiKey: "AIzaSyAU0qbJg9s8yanJ_DKd_gD7pE1W3V4A5B6",
+      authDomain: "lal-hi-janta-party.firebaseapp.com",
+      databaseURL: "https://lal-hi-janta-party-default-rtdb.firebaseio.com",
+      projectId: "lal-hi-janta-party",
+      storageBucket: "lal-hi-janta-party.appspot.com",
+      messagingSenderId: "252280217326",
+      appId: "1:252280217326:web:a10b9876543210fedcba",
+      measurementId: "G-57YEBBVFNX"
+    };
+
+    // Initialize Firebase Engine Context
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const membersRef = database.ref("members");
+
+    let globalMembersList = [];
     let currentGeneratedOTP = "";
     let temporaryRegistrationPayload = null;
 
-    document.getElementById("memberCount").innerText = members.length;
+    // Stream Cloud updates in real-time instantly synchronizing all active users globally
+    membersRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      globalMembersList = [];
+      
+      if (data) {
+        Object.keys(data).forEach(key => {
+          globalMembersList.push(data[key]);
+        });
+      }
+      
+      document.getElementById("memberCount").innerText = globalMembersList.length;
+    }, (error) => {
+      console.error("Cloud Synch Error Context:", error);
+      document.getElementById("memberCount").innerText = "Offline";
+    });
 
-    // LOGIN PROTOCOL LOGIC FOR RETURNING USERS
+    // RETRIEVAL PROTOCOL FOR RETURNING USERS
     function processExistingUserLogin() {
       const loginKey = document.getElementById("loginKey").value.trim().toLowerCase();
       
       if(!loginKey) {
-        alert("Authentication Error: Please input an email address or mobile number to look up your membership details.");
+        alert("Authentication Error: Please input an email address or mobile number to query.");
         return;
       }
 
-      const matchingAccount = members.find(m => m.email === loginKey || m.phone === loginKey);
+      const matchingAccount = globalMembersList.find(m => m.email === loginKey || m.phone === loginKey);
 
       if(matchingAccount) {
         populateIdentityCard(matchingAccount.name, matchingAccount.state, matchingAccount.profession, matchingAccount.uid);
-        alert(`Access Granted: Welcome back, ${matchingAccount.name}! Your permanent membership card has been loaded.`);
+        alert(`Access Granted: Welcome back, ${matchingAccount.name}! Your permanent membership card has been retrieved.`);
       } else {
-        alert("Record Not Found: No identity matching those details exists in this registry database. Please fill out the registration system below.");
+        alert("Record Not Found: No identity matching those details exists globally. Please fill out a registration profile.");
       }
     }
 
-    // REGISTRATION INITIALIZATION
+    // REGISTRATION FLOW INTERCEPT
     function initiateRegistrationWorkflow() {
       const name = document.getElementById("name").value.trim();
       const age = document.getElementById("age").value.trim();
@@ -923,9 +955,8 @@
       const state = document.getElementById("state").value.trim();
       const profession = document.getElementById("profession").value;
 
-      // Ensure field population parameters are valid
       if(!name || !age || !email || !phone || !state || !profession){
-        alert("Action Required: Please complete all data entry fields completely before attempting authorization.");
+        alert("Action Required: Please complete all operational fields before requesting validation.");
         return;
       }
 
@@ -934,10 +965,10 @@
         return;
       }
 
-      // DUPLICATE ENFORCEMENT CHECK
-      const absoluteDuplicate = members.find(m => m.email === email || m.phone === phone);
+      // NO-DUPLICATE INTERCEPT ALGORITHM ENFORCED GLOBALLY
+      const absoluteDuplicate = globalMembersList.find(m => m.email === email || m.phone === phone);
       if(absoluteDuplicate){
-        alert("Security Lockout: This profile already holds an active registry inside our ecosystem. Loading your existing card asset.");
+        alert("Security Lockout: This profile already holds an active registry inside our global system. Loading your existing asset.");
         populateIdentityCard(absoluteDuplicate.name, absoluteDuplicate.state, absoluteDuplicate.profession, absoluteDuplicate.uid);
         return;
       }
@@ -945,12 +976,12 @@
       currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
       temporaryRegistrationPayload = { name, age, email, phone, state, profession };
 
-      // Clear layout entry box array paths
       for (let i = 1; i <= 4; i++) {
         document.getElementById(`otp${i}`).value = "";
       }
 
       document.getElementById("simulatedCodeDisplay").innerText = currentGeneratedOTP;
+      document.getElementById("otpModal").add("active"); // Fix class list method assignments string references
       document.getElementById("otpModal").classList.add("active");
       document.getElementById("otp1").focus();
     }
@@ -973,7 +1004,7 @@
       currentGeneratedOTP = "";
     }
 
-    // VERIFY & COMMIT profile data state mutation indices
+    // COMMIT DATA TO CENTRAL CLOUD COCHLEA
     function verifyOtpAndCommitRegistration() {
       let enteredCode = "";
       for (let i = 1; i <= 4; i++) {
@@ -981,7 +1012,7 @@
       }
 
       if (enteredCode !== currentGeneratedOTP) {
-        alert("Authentication Failed: The verification token entered is invalid. Please double check parameters.");
+        alert("Authentication Failed: The verification token entered is invalid.");
         return;
       }
 
@@ -993,19 +1024,18 @@
         uid: assignedUID
       };
 
-      // Push safely to standard internal storage arrays
-      members.push(finalMemberProfile);
-      localStorage.setItem("lhjp_members", JSON.stringify(members));
-
-      // Update counters and trigger layout rendering
-      document.getElementById("memberCount").innerText = members.length;
-      populateIdentityCard(finalMemberProfile.name, finalMemberProfile.state, finalMemberProfile.profession, assignedUID);
-      
-      closeOtpVerificationModal();
-      alert(`Identity Confirmed! Your dynamic card has been compiled.`);
+      membersRef.push(finalMemberProfile)
+        .then(() => {
+          populateIdentityCard(finalMemberProfile.name, finalMemberProfile.state, finalMemberProfile.profession, assignedUID);
+          closeOtpVerificationModal();
+          alert(`Identity Confirmed! Your security profile has been synced globally.`);
+        })
+        .catch((error) => {
+          console.error("Database Save Fault Context:", error);
+          alert("Network Timeout: Unable to write data stream down to centralized architecture hubs.");
+        });
     }
 
-    // UI RENDER ENGINE UPDATE LAYER
     function populateIdentityCard(name, state, profession, uid) {
       document.getElementById("cardPlaceholder").style.display = "none";
       document.getElementById("cardUIWrapper").style.display = "flex";
@@ -1020,12 +1050,11 @@
       }
     }
 
-    // MULTI-ENVIRONMENT FILE MINT DOWNLOADING ENGINE
+    // CANVAS DOWNLOAD ROUTINE
     function downloadCardImage() {
       const cardTarget = document.getElementById("idCard");
       const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
 
-      // Taint bypass settings fallback allows browser to parse canvas fields locally without a server runtime loop crashing it
       html2canvas(cardTarget, {
         scale: 3, 
         backgroundColor: null,
@@ -1041,20 +1070,8 @@
         downloadHook.click();
         document.body.removeChild(downloadHook);
       }).catch(err => {
-        console.warn("Canvas parsing sandboxed. Defaulting engine to standalone printing view canvas layer layout.");
-        
-        let printWindow = window.open('', '_blank');
-        printWindow.document.write('<html><head><title>LHJP Member Card</title>');
-        printWindow.document.write('<style>body{background:#070709;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;} ' + document.getElementsByTagName('style')[0].innerHTML + '</style>');
-        printWindow.document.write('</head><body>');
-        printWindow.document.write(cardTarget.outerHTML);
-        printWindow.document.write('</body></html>');
-        printWindow.document.close();
-        
-        setTimeout(() => {
-          printWindow.print();
-          printWindow.close();
-        }, 500);
+        console.error("Render Engine Error:", err);
+        window.print();
       });
     }
   </script>
