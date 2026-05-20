@@ -100,7 +100,7 @@
       text-align: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
+ z-index: 1000;
       border-bottom: 1px solid var(--border);
     }
 
@@ -297,7 +297,7 @@
       font-weight: 800;
     }
 
-    /* CARD DISPLAY - ALIGNED TO YOUR PREMIUM RED BLEND INTERFACE */
+    /* CARD DISPLAY - PREMIUM DYNAMIC RENDER */
     .card-preview-pane {
       position: sticky;
       top: 100px;
@@ -889,7 +889,7 @@
   </footer>
 
   <script>
-    // Embedded direct verified configuration tags mapping your active console variables
+    // Configuration parameters mapping directly to your live sandbox project environment
     const firebaseConfig = {
       apiKey: "AIzaSyAU0qbJg9s8yanJ_DKd_gD7pE1W3V4A5B6",
       authDomain: "lal-hi-janta-party.firebaseapp.com",
@@ -981,7 +981,6 @@
       }
 
       document.getElementById("simulatedCodeDisplay").innerText = currentGeneratedOTP;
-      document.getElementById("otpModal").add("active"); // Fix class list method assignments string references
       document.getElementById("otpModal").classList.add("active");
       document.getElementById("otp1").focus();
     }
@@ -1004,7 +1003,7 @@
       currentGeneratedOTP = "";
     }
 
-    // COMMIT DATA TO CENTRAL CLOUD COCHLEA
+    // COMMIT DATA TO CENTRAL CLOUD DB
     function verifyOtpAndCommitRegistration() {
       let enteredCode = "";
       for (let i = 1; i <= 4; i++) {
@@ -1041,40 +1040,4 @@
       document.getElementById("cardUIWrapper").style.display = "flex";
 
       document.getElementById("cardName").innerText = name;
-      document.getElementById("cardState").innerText = state;
-      document.getElementById("cardProfession").innerText = profession;
-      document.getElementById("cardUID").innerText = uid;
-
-      if(name.length > 0) {
-        document.getElementById("cardInitial").innerText = name.charAt(0);
-      }
-    }
-
-    // CANVAS DOWNLOAD ROUTINE
-    function downloadCardImage() {
-      const cardTarget = document.getElementById("idCard");
-      const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
-
-      html2canvas(cardTarget, {
-        scale: 3, 
-        backgroundColor: null,
-        useCORS: false, 
-        allowTaint: true, 
-        logging: false
-      }).then(canvas => {
-        const generatedImageURL = canvas.toDataURL("image/png");
-        const downloadHook = document.createElement('a');
-        downloadHook.href = generatedImageURL;
-        downloadHook.download = `LHJP_Card_${memberName}.png`;
-        document.body.appendChild(downloadHook);
-        downloadHook.click();
-        document.body.removeChild(downloadHook);
-      }).catch(err => {
-        console.error("Render Engine Error:", err);
-        window.print();
-      });
-    }
-  </script>
-
-</body>
-</html>
+      document.getElementById("cardState
