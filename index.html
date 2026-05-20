@@ -804,8 +804,8 @@
                 <div class="id-avatar" id="cardInitial">P</div>
                 <div class="id-hologram-orb"></div>
               </div>
-              <div class="id-name" id="cardName">Pritam Kumar Das</div>
-              <div class="id-uid" id="cardUID">LHJP-529879</div>
+              <div class="id-name" id="cardName">Patriot Name</div>
+              <div class="id-uid" id="cardUID">LHJP-000000</div>
               
               <div class="id-meta-grid">
                 <div class="id-meta-item">
@@ -914,7 +914,7 @@
       }
     }
 
-    // REGISTRATION PROCESSING
+    // REGISTRATION INITIALIZATION
     function initiateRegistrationWorkflow() {
       const name = document.getElementById("name").value.trim();
       const age = document.getElementById("age").value.trim();
@@ -923,8 +923,9 @@
       const state = document.getElementById("state").value.trim();
       const profession = document.getElementById("profession").value;
 
+      // Ensure field population parameters are valid
       if(!name || !age || !email || !phone || !state || !profession){
-        alert("Action Required: Please complete all data entry input structures before attempting authorization.");
+        alert("Action Required: Please complete all data entry fields completely before attempting authorization.");
         return;
       }
 
@@ -933,10 +934,10 @@
         return;
       }
 
-      // NO-DUPLICATE INTERCEPT PROTOCOL
+      // DUPLICATE ENFORCEMENT CHECK
       const absoluteDuplicate = members.find(m => m.email === email || m.phone === phone);
       if(absoluteDuplicate){
-        alert("Security Lockout: This profile already holds an active registry inside our ecosystem. Loading existing card layout asset.");
+        alert("Security Lockout: This profile already holds an active registry inside our ecosystem. Loading your existing card asset.");
         populateIdentityCard(absoluteDuplicate.name, absoluteDuplicate.state, absoluteDuplicate.profession, absoluteDuplicate.uid);
         return;
       }
@@ -944,6 +945,7 @@
       currentGeneratedOTP = Math.floor(1000 + Math.random() * 9000).toString();
       temporaryRegistrationPayload = { name, age, email, phone, state, profession };
 
+      // Clear layout entry box array paths
       for (let i = 1; i <= 4; i++) {
         document.getElementById(`otp${i}`).value = "";
       }
@@ -971,6 +973,7 @@
       currentGeneratedOTP = "";
     }
 
+    // VERIFY & COMMIT profile data state mutation indices
     function verifyOtpAndCommitRegistration() {
       let enteredCode = "";
       for (let i = 1; i <= 4; i++) {
@@ -978,7 +981,7 @@
       }
 
       if (enteredCode !== currentGeneratedOTP) {
-        alert("Authentication Failed: The verification token entered is invalid. Please double check configuration parameters.");
+        alert("Authentication Failed: The verification token entered is invalid. Please double check parameters.");
         return;
       }
 
@@ -990,14 +993,71 @@
         uid: assignedUID
       };
 
+      // Push safely to standard internal storage arrays
       members.push(finalMemberProfile);
       localStorage.setItem("lhjp_members", JSON.stringify(members));
 
+      // Update counters and trigger layout rendering
       document.getElementById("memberCount").innerText = members.length;
       populateIdentityCard(finalMemberProfile.name, finalMemberProfile.state, finalMemberProfile.profession, assignedUID);
       
       closeOtpVerificationModal();
-      alert(`Identity Confirmed! Your security profile has been logged successfully.`);
+      alert(`Identity Confirmed! Your dynamic card has been compiled.`);
     }
 
-    function populateIdentityCard(name, state,
+    // UI RENDER ENGINE UPDATE LAYER
+    function populateIdentityCard(name, state, profession, uid) {
+      document.getElementById("cardPlaceholder").style.display = "none";
+      document.getElementById("cardUIWrapper").style.display = "flex";
+
+      document.getElementById("cardName").innerText = name;
+      document.getElementById("cardState").innerText = state;
+      document.getElementById("cardProfession").innerText = profession;
+      document.getElementById("cardUID").innerText = uid;
+
+      if(name.length > 0) {
+        document.getElementById("cardInitial").innerText = name.charAt(0);
+      }
+    }
+
+    // MULTI-ENVIRONMENT FILE MINT DOWNLOADING ENGINE
+    function downloadCardImage() {
+      const cardTarget = document.getElementById("idCard");
+      const memberName = document.getElementById("cardName").innerText.replace(/\s+/g, '_');
+
+      // Taint bypass settings fallback allows browser to parse canvas fields locally without a server runtime loop crashing it
+      html2canvas(cardTarget, {
+        scale: 3, 
+        backgroundColor: null,
+        useCORS: false, 
+        allowTaint: true, 
+        logging: false
+      }).then(canvas => {
+        const generatedImageURL = canvas.toDataURL("image/png");
+        const downloadHook = document.createElement('a');
+        downloadHook.href = generatedImageURL;
+        downloadHook.download = `LHJP_Card_${memberName}.png`;
+        document.body.appendChild(downloadHook);
+        downloadHook.click();
+        document.body.removeChild(downloadHook);
+      }).catch(err => {
+        console.warn("Canvas parsing sandboxed. Defaulting engine to standalone printing view canvas layer layout.");
+        
+        let printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>LHJP Member Card</title>');
+        printWindow.document.write('<style>body{background:#070709;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;} ' + document.getElementsByTagName('style')[0].innerHTML + '</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(cardTarget.outerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+        }, 500);
+      });
+    }
+  </script>
+
+</body>
+</html>
